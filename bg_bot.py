@@ -37,6 +37,7 @@ def runserver():
                 users[phone_no] = [1, True, name]
                 encoded_msg = urllib.parse.quote('*Hare Krishna {}!* \n\nYou are now subscribed to receive daily Bhagvad Gita shlokas. \n\nYou will receive a message every day at 5:00 AM. \n\nYou can unsubscribe anytime by sending "unsubscribe" to this number. \n\nYour journey of self realisation starts now.'.format(name))
                 return_webhook_url = 'https://betablaster.in/api/send.php?number={}&type=text&message={}&instance_id=62699138DB07C&access_token=cc6f1a6809d274606d371de2c95b809a'.format(phone_no, encoded_msg)
+                print(return_webhook_url)
                 urllib.request.urlopen(return_webhook_url)
 
             elif phone_no in users.keys() and ( msg_text.lower().strip() == 'hare krishna' or msg_text.lower().strip() == 'hare krisna' or msg_text.lower().strip() == 'hare krsna'):
