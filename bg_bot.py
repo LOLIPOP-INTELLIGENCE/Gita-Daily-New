@@ -12,6 +12,8 @@ app = Flask(__name__)
 app.app_context().push()
 
 users = dict()
+
+ssl._create_default_https_context = ssl._create_unverified_context
     
 @app.route("/")
 def hello():
@@ -40,21 +42,21 @@ def runserver():
                 encoded_msg = urllib.parse.quote('*Hare Krishna {}!* \n\nYou are now subscribed to receive daily Bhagvad Gita shlokas. \n\nYou will receive a message every day at 5:00 AM. \n\nYou can unsubscribe anytime by sending "unsubscribe" to this number. \n\nYour journey of self realisation starts now.'.format(name))
                 return_webhook_url = 'https://betablaster.in/api/send.php?number={}&type=text&message={}&instance_id=62699138DB07C&access_token=cc6f1a6809d274606d371de2c95b809a'.format(phone_no, encoded_msg)
                 print(return_webhook_url)
-                urllib.request.urlopen(return_webhook_url, context=ssl.create_default_context(cafile=certifi.where()))
+                urllib.request.urlopen(return_webhook_url)
 
             elif phone_no in users.keys() and ( msg_text.lower().strip() == 'hare krishna' or msg_text.lower().strip() == 'hare krisna' or msg_text.lower().strip() == 'hare krsna'):
                 users[phone_no] = [users[phone_no][0], True, name]
                 encoded_msg = urllib.parse.quote('*Hare Krishna {}!* \n\nYou are now subscribed to receive daily Bhagvad Gita shlokas. \n\nYou will receive a message every day at 5:00 AM. \n\nYou can unsubscribe anytime by sending "unsubscribe" to this number. \n\nYour journey of self realisation starts now.'.format(name))
                 return_webhook_url = 'https://betablaster.in/api/send.php?number={}&type=text&message={}&instance_id=62699138DB07C&access_token=cc6f1a6809d274606d371de2c95b809a'.format(phone_no, encoded_msg)
                 print(return_webhook_url)
-                urllib.request.urlopen(return_webhook_url, context=ssl.create_default_context(cafile=certifi.where()))
+                urllib.request.urlopen(return_webhook_url)
 
             elif phone_no in users.keys() and msg_text.lower().strip() == 'unsubscribe':
                 users[phone_no][1] = False
                 encoded_msg = urllib.parse.quote('You have been unsubscribed from Bhagavad Gita notifications. \n\nYou can resubscribe anytime by sending "hare krishna" to this number.')
                 return_webhook_url = 'https://betablaster.in/api/send.php?number={}&type=text&message={}&instance_id=62699138DB07C&access_token=cc6f1a6809d274606d371de2c95b809a'.format(phone_no, encoded_msg)
                 print(return_webhook_url)
-                urllib.request.urlopen(return_webhook_url, context=ssl.create_default_context(cafile=certifi.where()))
+                urllib.request.urlopen(return_webhook_url)
 
     except:
         pass
@@ -103,7 +105,7 @@ def print_date_time():
             encoded_msg = urllib.parse.quote(message_text)
             return_webhook_url = 'https://betablaster.in/api/send.php?number={}&type=text&message={}&instance_id=62699138DB07C&access_token=cc6f1a6809d274606d371de2c95b809a'.format(phone_no, encoded_msg)
             print(return_webhook_url)
-            urllib.request.urlopen(return_webhook_url, context=ssl.create_default_context(cafile=certifi.where()))
+            urllib.request.urlopen(return_webhook_url)
             users[phone_no][0] = users[phone_no][0] + 1
 
     return ""
